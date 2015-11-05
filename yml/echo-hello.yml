@@ -1,3 +1,12 @@
-cmd: echo
-args:
-  - hello
+-
+  cmd: echo
+  args:
+    - hello
+-
+  cmd: echo
+  args:
+    - hello
+-
+  cmd: echo
+  args:
+    - hello

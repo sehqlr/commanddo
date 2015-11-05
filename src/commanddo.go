@@ -31,35 +31,40 @@ func main() {
         }
 
 
-        sh := ShellScript{}
+        sh_slice := []ShellScript{}
 
-        yaml_err := yaml.Unmarshal(data, &sh)
+        yaml_err := yaml.Unmarshal(data, &sh_slice)
         if yaml_err != nil {
                 log.Fatal(yaml_err)
         }
 
         var opts []string
-        for k,v := range sh.Opts {
-                if len(k) == 1 {
-                        opts = append(opts, "-" + k + v)
-                } else {
-                        opts = append(opts, "--" + k + "=" + v)
+        var args []string
+        var out bytes.Buffer
+
+        for _,sh := range sh_slice {
+                for k,v := range sh.Opts {
+                        if len(k) == 1 {
+                                opts = append(opts, "-" + k + v)
+                        } else {
+                                opts = append(opts, "--" + k + "=" + v)
+                        }
+                }
+
+                for _,v := range sh.Args {
+                        args = append(args, os.ExpandEnv(v))
+                }
+                
+                all_args := append(opts, args...)
+                cmd := exec.Command(string(sh.Cmd), all_args...)
+                cmd.Stdout = &out
+
+                cmd_err := cmd.Run()
+                if cmd_err != nil {
+                        log.Fatal(cmd_err)
                 }
         }
 
-        var args []string
-        for _,v := range sh.Args {
-                args = append(args, os.ExpandEnv(v))
-        }
 
-        all_args := append(opts, args...)
-        cmd := exec.Command(string(sh.Cmd), all_args...)
-        var out bytes.Buffer
-        cmd.Stdout = &out
-
-        cmd_err := cmd.Run()
-        if cmd_err != nil {
-                log.Fatal(cmd_err)
-        }
         fmt.Printf("stdout:\n%s\n", out.String())
 }

@@ -1,0 +1,29 @@
+---
+-
+  cmd: cut
+  opts:
+    f: 1
+    d: ','
+  args:
+    - blah.csv
+-
+  cmd: cut
+  opts:
+    f: 2
+    d: ','
+  args:
+    - blah.csv
+-
+  cmd: cut
+  opts:
+    f: 3
+    d: ','
+  args:
+    - blah.csv
+-
+  cmd: cut
+  opts:
+    f: 1
+    d: ','
+  args:
+    - blah.csv
