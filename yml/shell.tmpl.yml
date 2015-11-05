@@ -1,0 +1,8 @@
+cmd: binary
+opts:
+  opt1: true
+  opt2: false
+args:
+  - list
+  - of
+  - args

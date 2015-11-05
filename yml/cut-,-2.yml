@@ -1,0 +1,7 @@
+---
+cmd: cut
+opts:
+  f: 2
+  d: ','
+args:
+  - blah.csv
