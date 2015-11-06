@@ -20,13 +20,15 @@ type ShellScript struct {
 }
 
 func main() {
+        fmt.Println("STARTING")
+        fmt.Println("========")
         filepath := os.Args[1]
 
         data, io_err := ioutil.ReadFile(filepath)
         if io_err != nil {
                 log.Fatal(io_err)
         } else {
-                fmt.Println("stdin:")
+                fmt.Println("STDIN:")
                 fmt.Println(string(data))
         }
 
@@ -38,11 +40,12 @@ func main() {
                 log.Fatal(yaml_err)
         }
 
-        var opts []string
-        var args []string
-        var out bytes.Buffer
 
-        for _,sh := range sh_slice {
+        for idx,sh := range sh_slice {
+                var opts []string
+                var args []string
+                var out bytes.Buffer
+
                 for k,v := range sh.Opts {
                         if len(k) == 1 {
                                 opts = append(opts, "-" + k + v)
@@ -54,7 +57,7 @@ func main() {
                 for _,v := range sh.Args {
                         args = append(args, os.ExpandEnv(v))
                 }
-                
+
                 all_args := append(opts, args...)
                 cmd := exec.Command(string(sh.Cmd), all_args...)
                 cmd.Stdout = &out
@@ -62,9 +65,11 @@ func main() {
                 cmd_err := cmd.Run()
                 if cmd_err != nil {
                         log.Fatal(cmd_err)
+                } else {
+                        fmt.Printf("CMD %d STDOUT:\n%s", idx, out.String())
                 }
         }
 
-
-        fmt.Printf("stdout:\n%s\n", out.String())
+        fmt.Println("=======")
+        fmt.Println("EXITING")
 }
