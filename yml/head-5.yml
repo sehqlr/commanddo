@@ -1,7 +1,8 @@
 ---
-cmd: head
-opts:
-  n: 5
-args:
-  - $HOME/.bashrc
+-
+  cmd: head
+  opts:
+    n: 5
+  args:
+    - $HOME/.bashrc
 

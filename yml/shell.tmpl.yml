@@ -1,8 +1,18 @@
-cmd: binary
-opts:
-  opt1: true
-  opt2: false
-args:
-  - list
-  - of
-  - args
+-
+  cmd: binary
+  opts:
+    o: true
+    another_opt: false
+  args:
+    - list
+    - of
+    - args
+-
+  cmd: binary
+  opts:
+    o: true
+    another_opt: false
+  args:
+    - list
+    - of
+    - args
