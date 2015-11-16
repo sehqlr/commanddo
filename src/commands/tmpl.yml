@@ -1,0 +1,17 @@
+name:
+  args:
+    - list
+    - of
+    - items
+  opts:
+    default_flag: true
+    opt_flag: nil
+
+modal_name:
+  args:
+    - list
+    - of
+    - args
+  mode:
+    mode1:
+      

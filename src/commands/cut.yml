@@ -1,0 +1,15 @@
+name: cut
+args:
+  - list
+  - file...
+opts:
+  b: list
+  c: list
+  f:
+    d: '\t'
+    
+  switch:
+    - b
+    - c
+    - f
+
